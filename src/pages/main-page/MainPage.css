@@ -1,0 +1,32 @@
+.main-content {
+	width: 80%;
+	margin: 20px auto;
+}
+  
+.card {
+	background-color: #93c5fd;
+	padding: 1.5rem;
+	margin-bottom: 1rem;
+	border-radius: 0.5rem;
+}
+  
+.special-card {
+	margin-bottom: 2rem;
+}	
+  
+.card-title {
+	font-size: 1.25rem;
+	font-weight: 600;
+	margin-bottom: 0.5rem;
+	color: #1e3a8a;
+}
+  
+.card-text {
+	color: #1e40af;
+}
+  
+.card-date {
+	text-align: right;
+	font-size: 0.875rem;
+	color: #475569;
+}
