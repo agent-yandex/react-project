@@ -24,7 +24,7 @@ const MainLayout = () => {
                         {
                             getToken() ? (
                                 <>
-                                    <Link to='/profile'>ФИО</Link>
+                                    <Link to='/profile'>Пользователь</Link>
                                     <Button label="Выйти" view="primary" onClick={handleLogout} />
                                 </>
                             ) : (

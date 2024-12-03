@@ -32,17 +32,17 @@ const ServiceDetailPage = () => {
 
         const fetchServiceDetails = async () => {
             try {
-            const response = await fetch(`https://673423afa042ab85d1190055.mockapi.io/api/v1/services/${serviceId}`);
-            if (!response.ok) {
-                throw new Error('Не удалось загрузить услугу');
-            }
+                const response = await fetch(`https://673423afa042ab85d1190055.mockapi.io/api/v1/services/${serviceId}`);
+                if (!response.ok) {
+                    throw new Error('Не удалось загрузить услугу');
+                }
 
-            const serviceData = await response.json();
-            setService(serviceData);
+                const serviceData = await response.json();
+                setService(serviceData);
             } catch (err) {
-            setError(err.message || 'Произошла ошибка при загрузке услуги');
+                setError(err.message || 'Произошла ошибка при загрузке услуги');
             } finally {
-            setLoading(false);
+                setLoading(false);
             }
         };
 
@@ -64,7 +64,8 @@ const ServiceDetailPage = () => {
 
             {/* Генерация случайного изображения для сервиса, используя его ID */}
             <img
-                src={`https://picsum.photos/500?random=${service?.id}`} // Используем ID сервиса для генерации уникального изображения
+                // src={`https://picsum.photos/500?random=${service?.id}`}
+                src={service?.image}
                 alt={service?.name}
                 className='service-detail-image'
             />
