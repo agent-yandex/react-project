@@ -1,11 +1,47 @@
-import React from 'react';
+import React, { useEffect, useState }  from 'react';
 import { Outlet, Link, useNavigate } from 'react-router-dom';
 import { Button } from '@consta/uikit/Button';
 import { getToken, dropToken } from '../../services/Tocken';
+import { useDispatch, useSelector } from 'react-redux';
+import { setUser } from "../../data/Store";
+
 import './MainLayout.css';
 
 const MainLayout = () => {
     const navigate = useNavigate();
+    const dispatch = useDispatch();
+	const user = useSelector((state) => state.user);
+
+	const [loading, setLoading] = useState(true);
+	const [error, setError] = useState("");
+
+	useEffect(() => {
+		const userToken = getToken();
+
+		const fetchUserInfo = async () => {
+			try {
+				const response = await fetch("https://dummyjson.com/auth/me", {
+					method: "GET",
+					headers: {
+					Authorization: `Bearer ${userToken}`,
+					},
+				});
+
+				if (!response.ok) {
+					throw new Error("Не удалось загрузить информацию о пользователе");
+				}
+
+				const userInfo = await response.json();
+				dispatch(setUser(userInfo));
+			} catch (err) {
+				setError(err.message || "Произошла ошибка при загрузке данных пользователя");
+			} finally {
+				setLoading(false);
+			}
+		};
+
+		fetchUserInfo();
+	}, [dispatch, navigate]);
 
     const handleLogout = () => {
         dropToken();
@@ -24,7 +60,7 @@ const MainLayout = () => {
                         {
                             getToken() ? (
                                 <>
-                                    <Link to='/profile'>Пользователь</Link>
+                                    <Link to='/profile'>{user.username}</Link>
                                     <Button label="Выйти" view="primary" onClick={handleLogout} />
                                 </>
                             ) : (
